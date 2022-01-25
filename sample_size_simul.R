@@ -17,7 +17,8 @@ library(lqmm)
 iters <- 1000
 
 # Steekproefkenmerken
-n     <- 392*2
+#n     <- 392*2 # power = 76%
+n     <- 425*2 # power = 79.8%
 mu    <- c(0.77, 0.26, 0.30, 0.35)
 sd    <- c(0.23, 0.31, 0.36, 0.38)
 es    <- 0.06
