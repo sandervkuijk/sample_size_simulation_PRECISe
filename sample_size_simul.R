@@ -3,7 +3,7 @@
 ## Sander van Kuijk
 ##
 ## Start: 21/01/2022
-## Laatste aanpassing: 25/01/2022
+## Laatste aanpassing: 30/05/2022
 ################################################################################
 
 library(MASS)
@@ -17,24 +17,17 @@ library(lqmm)
 iters <- 1000
 
 # Steekproefkenmerken
-#n     <- 392*2 # power = 76%
-n     <- 425*2 # power = 79.8%
-mu    <- c(0.77, 0.26, 0.30, 0.35)
-sd    <- c(0.23, 0.31, 0.36, 0.38)
+n     <- 320*2 # power = 79.8%
+mu    <- c(0.79, 0.48, 0.60, 0.67)
+sd    <- c(0.23, 0.28, 0.28, 0.25)
 es    <- 0.06
 
-#     b      30     90     180
-# b   0.23^2 0.18   0.15   0.21
-# 30  0.18   0.31^2 0.71   0.71
-# 90  0.15   0.71   0.36^2 0.89
-# 180 0.21   0.71   0.89   0.38^2
-
-# Let op! covariance = correlation*sd1*sd2
-sig   <- matrix(c(sd[1]^2, 0.18*0.23*0.31, 0.15*0.23*0.36, 0.21*0.23*0.38,
-                  0.18*0.31*0.23, sd[2]^2, 0.71*0.31*0.36, 0.71*0.31*0.38,
-                  0.15*0.36*0.23, 0.71*0.36*0.31, sd[3]^2, 0.89*0.36*0.38,
-                  0.21*0.38*0.23, 0.71*0.38*0.31, 0.89*0.38*0.36, sd[4]^2),
-                nrow = 4, byrow = TRUE)
+# # Let op! covariance = correlation*sd1*sd2
+sig   <- matrix(c(sd[1]^2, 0.16*0.23*0.28, 0.13*0.23*0.28, 0.15*0.23*0.25,
+                 0.16*0.28*0.23, sd[2]^2, 0.48*0.28*0.28, 0.41*0.28*0.25,
+                 0.13*0.28*0.23, 0.48*0.28*0.28, sd[3]^2, 0.68*0.28*0.25,
+                 0.15*0.25*0.23, 0.41*0.25*0.28, 0.68*0.25*0.28, sd[4]^2),
+                 nrow = 4, byrow = TRUE)
 is.positive.definite(sig)
 
 # Dubbelcheck simulatie data
@@ -93,15 +86,15 @@ for(i in 1:iters){
 }
 
 # Simulatie check
-mean(mean30)    # 0.26
-mean(mean90)    # 0.30
-mean(mean180)   # 0.35
-mean(sd30)      # 0.31
-mean(sd90)      # 0.36
-mean(sd180)     # 0.38
-mean(c3090)     # 0.71
-mean(c30180)    # 0.71
-mean(c90180)    # 0.89
+mean(mean30)
+mean(mean90)
+mean(mean180)
+mean(sd30)
+mean(sd90)
+mean(sd180)
+mean(c3090)
+mean(c30180)
+mean(c90180)
 
 # Resultaten
 noquote(paste("Power to detect a difference of ", es, " points is ",
