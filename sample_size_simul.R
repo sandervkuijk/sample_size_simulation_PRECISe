@@ -3,7 +3,7 @@
 ## Sander van Kuijk
 ##
 ## Start: 21/01/2022
-## Laatste aanpassing: 30/05/2022
+## Laatste aanpassing: 22/09/2022
 ################################################################################
 
 library(MASS)
@@ -17,17 +17,18 @@ library(lqmm)
 iters <- 1000
 
 # Steekproefkenmerken
-n     <- 320*2 # power = 79.8%
-mu    <- c(0.79, 0.48, 0.60, 0.67)
-sd    <- c(0.23, 0.28, 0.28, 0.25)
+n     <- 320*2 # power = 92.5%
+n     <- round(412*2*0.6) # 60% survivors, power = 86%
+mu    <- c(0.76, 0.45, 0.61, 0.67)
+sd    <- c(0.24, 0.28, 0.28, 0.26)
 es    <- 0.06
 
 # # Let op! covariance = correlation*sd1*sd2
-sig   <- matrix(c(sd[1]^2, 0.16*0.23*0.28, 0.13*0.23*0.28, 0.15*0.23*0.25,
-                 0.16*0.28*0.23, sd[2]^2, 0.48*0.28*0.28, 0.41*0.28*0.25,
-                 0.13*0.28*0.23, 0.48*0.28*0.28, sd[3]^2, 0.68*0.28*0.25,
-                 0.15*0.25*0.23, 0.41*0.25*0.28, 0.68*0.25*0.28, sd[4]^2),
-                 nrow = 4, byrow = TRUE)
+sig   <- matrix(c(1.00*sd[1]*sd[1], 0.14*sd[1]*sd[2], 0.16*sd[1]*sd[3], 0.18*sd[1]*sd[4],
+                  0.14*sd[2]*sd[1], 1.00*sd[2]*sd[2], 0.48*sd[2]*sd[3], 0.38*sd[2]*sd[4],
+                  0.16*sd[3]*sd[1], 0.48*sd[3]*sd[2], 1.00*sd[3]*sd[3], 0.69*sd[3]*sd[4],
+                  0.18*sd[4]*sd[1], 0.38*sd[4]*sd[2], 0.69*sd[4]*sd[3], 1.00*sd[4]*sd[4]),
+                  nrow = 4, byrow = TRUE)
 is.positive.definite(sig)
 
 # Dubbelcheck simulatie data
