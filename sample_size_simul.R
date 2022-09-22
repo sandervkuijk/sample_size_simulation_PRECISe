@@ -18,7 +18,7 @@ iters <- 1000
 
 # Steekproefkenmerken
 n     <- 320*2 # power = 92.5%
-n     <- round(412*2*0.6) # 60% survivors, power = 86%
+n     <- round(412*2*0.6*0.9)+1 # 60% survivors, 10% drop-out, +1 voor even getal, power = 83.6%
 mu    <- c(0.76, 0.45, 0.61, 0.67)
 sd    <- c(0.24, 0.28, 0.28, 0.26)
 es    <- 0.06
